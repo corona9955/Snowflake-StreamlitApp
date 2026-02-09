@@ -1,0 +1,1501 @@
+name: OUTBOUND
+tables:
+  - name: VW_CAT_COMPANY
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_CAT_COMPANY
+    dimensions:
+      - name: CITY
+        synonyms:
+          - locality
+          - town
+          - urban_area
+        description: The city to which an order is directed.
+        expr: CITY
+        data_type: VARCHAR(256)
+      - name: CODE
+        expr: CODE
+        data_type: VARCHAR(256)
+      - name: COMPANY
+        synonyms:
+          - business
+          - company_name
+          - corporation
+          - enterprise
+          - organization
+        description: The name of the company.
+        expr: COMPANY
+        data_type: VARCHAR(256)
+      - name: COMPANY_ID
+        synonyms:
+          - business_id
+          - client_id
+          - corporation_id
+          - enterprise_id
+          - entity_id
+          - firm_id
+          - organization_id
+        description: Unique identifier for a company.
+        expr: COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: COMPANY_TITLE
+        expr: COMPANY_TITLE
+        data_type: VARCHAR(256)
+      - name: FLAG_ACTIVA
+        expr: FLAG_ACTIVA
+        data_type: NUMBER(38,0)
+      - name: ID_WHS
+        synonyms:
+          - facility_id
+          - storage_facility_id
+          - storage_id
+          - warehouse_id
+          - warehouse_number
+          - whs_identifier
+        description: Unique identifier for a warehouse.
+        expr: ID_WHS
+        data_type: NUMBER(38,0)
+      - name: WHS
+        synonyms:
+          - distribution_center
+          - facility
+          - storage
+          - warehouse
+        description: Name of the store
+        expr: WHS
+        data_type: VARCHAR(256)
+      - name: ZOE
+        expr: ZOE
+        data_type: NUMBER(38,0)
+    unique_keys:
+      - columns:
+          - COMPANY_ID
+  - name: VW_ITEM_CBO
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_ITEM_CBO_
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: BRAND
+        expr: BRAND
+        data_type: VARCHAR(60)
+      - name: CATCH_WEIGHT_ITEM
+        expr: CATCH_WEIGHT_ITEM
+        data_type: VARCHAR(4)
+      - name: CHANNEL_TYPE_ID
+        expr: CHANNEL_TYPE_ID
+        data_type: NUMBER(38,0)
+      - name: COLOR_DESC
+        expr: COLOR_DESC
+        data_type: VARCHAR(200)
+      - name: COMPANY_ID
+        expr: COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: DATABASE_QTY_UOM_ID
+        expr: DATABASE_QTY_UOM_ID
+        data_type: NUMBER(38,0)
+      - name: DESCRIPTION
+        expr: DESCRIPTION
+        data_type: VARCHAR(400)
+      - name: DIMENSION_UOM_ID
+        expr: DIMENSION_UOM_ID
+        data_type: NUMBER(38,0)
+      - name: DISPLAY_QTY_UOM_ID
+        expr: DISPLAY_QTY_UOM_ID
+        data_type: NUMBER(38,0)
+      - name: GIFT_CARD_TYPE
+        expr: GIFT_CARD_TYPE
+        data_type: VARCHAR(60)
+      - name: ITEM_BAR_CODE
+        expr: ITEM_BAR_CODE
+        data_type: VARCHAR(200)
+      - name: ITEM_COLOR
+        expr: ITEM_COLOR
+        data_type: VARCHAR(200)
+      - name: ITEM_COLOR_SFX
+        expr: ITEM_COLOR_SFX
+        data_type: VARCHAR(32)
+      - name: ITEM_DESC_SHORT
+        expr: ITEM_DESC_SHORT
+        data_type: VARCHAR(200)
+      - name: ITEM_DISPOSITION
+        expr: ITEM_DISPOSITION
+        data_type: VARCHAR(60)
+      - name: ITEM_ID
+        expr: ITEM_ID
+        data_type: NUMBER(38,0)
+      - name: ITEM_NAME
+        expr: ITEM_NAME
+        data_type: VARCHAR(400)
+      - name: ITEM_QUALITY
+        expr: ITEM_QUALITY
+        data_type: VARCHAR(4)
+      - name: ITEM_SECOND_DIM
+        expr: ITEM_SECOND_DIM
+        data_type: VARCHAR(200)
+      - name: ITEM_SIZE_DESC
+        expr: ITEM_SIZE_DESC
+        data_type: VARCHAR(200)
+      - name: ITEM_STYLE
+        expr: ITEM_STYLE
+        data_type: VARCHAR(200)
+      - name: ITEM_STYLE_SFX
+        expr: ITEM_STYLE_SFX
+        data_type: VARCHAR(32)
+      - name: LONG_DESCRIPTION
+        expr: LONG_DESCRIPTION
+        data_type: VARCHAR(2000)
+      - name: PRICE_STATUS
+        expr: PRICE_STATUS
+        data_type: VARCHAR(60)
+      - name: PROD_TYPE
+        expr: PROD_TYPE
+        data_type: VARCHAR(12)
+      - name: PRODUCT_CLASS_ID
+        expr: PRODUCT_CLASS_ID
+        data_type: NUMBER(38,0)
+      - name: REF_FIELD1
+        expr: REF_FIELD1
+        data_type: VARCHAR(100)
+      - name: REF_FIELD10
+        expr: REF_FIELD10
+        data_type: VARCHAR(100)
+      - name: REF_FIELD2
+        expr: REF_FIELD2
+        data_type: VARCHAR(100)
+      - name: REF_FIELD3
+        expr: REF_FIELD3
+        data_type: VARCHAR(100)
+      - name: REF_FIELD4
+        expr: REF_FIELD4
+        data_type: VARCHAR(100)
+      - name: REF_FIELD5
+        expr: REF_FIELD5
+        data_type: VARCHAR(100)
+      - name: REF_FIELD6
+        expr: REF_FIELD6
+        data_type: VARCHAR(100)
+      - name: REF_FIELD7
+        expr: REF_FIELD7
+        data_type: VARCHAR(100)
+      - name: REF_FIELD8
+        expr: REF_FIELD8
+        data_type: VARCHAR(100)
+      - name: REF_FIELD9
+        expr: REF_FIELD9
+        data_type: VARCHAR(100)
+      - name: SITC_CODE_ID
+        expr: SITC_CODE_ID
+        data_type: NUMBER(38,0)
+      - name: STATUS_CODE
+        expr: STATUS_CODE
+        data_type: NUMBER(38,0)
+      - name: STCC_CODE_ID
+        expr: STCC_CODE_ID
+        data_type: NUMBER(38,0)
+      - name: URL
+        expr: URL
+        data_type: VARCHAR(1020)
+      - name: VERSION
+        expr: VERSION
+        data_type: NUMBER(38,0)
+      - name: VOLUME_UOM_ID
+        expr: VOLUME_UOM_ID
+        data_type: NUMBER(38,0)
+      - name: WEIGHT_UOM_ID
+        expr: WEIGHT_UOM_ID
+        data_type: NUMBER(38,0)
+      - name: XB_ENVIROMENT
+        expr: XB_ENVIROMENT
+        data_type: VARCHAR(6)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+      - name: ARCHIVE_DTTM
+        expr: ARCHIVE_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: AUDIT_CREATED_DTTM
+        expr: AUDIT_CREATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: AUDIT_LAST_UPDATED_DTTM
+        expr: AUDIT_LAST_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: CREATED_DTTM
+        expr: CREATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: CUBISCAN_LAST_UPDATED_DTTM
+        expr: CUBISCAN_LAST_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LAST_UPDATED_DTTM
+        expr: LAST_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+    facts:
+      - name: REF_NUM1
+        expr: REF_NUM1
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM2
+        expr: REF_NUM2
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM3
+        expr: REF_NUM3
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM4
+        expr: REF_NUM4
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM5
+        expr: REF_NUM5
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: UNIT_HEIGHT
+        expr: UNIT_HEIGHT
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: UNIT_LENGTH
+        expr: UNIT_LENGTH
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: UNIT_VOLUME
+        expr: UNIT_VOLUME
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: UNIT_WEIGHT
+        expr: UNIT_WEIGHT
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: UNIT_WIDTH
+        expr: UNIT_WIDTH
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+    unique_keys:
+      - columns:
+          - COMPANY_ID
+  - name: VW_LPN
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_LPN_
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: ASN_ID
+        expr: ASN_ID
+        data_type: NUMBER(38,0)
+      - name: BUSINESS_PARTNER_ID
+        expr: BUSINESS_PARTNER_ID
+        data_type: VARCHAR(40)
+      - name: CONTAINER_SIZE
+        expr: CONTAINER_SIZE
+        data_type: VARCHAR(12)
+      - name: CONTAINER_TYPE
+        expr: CONTAINER_TYPE
+        data_type: VARCHAR(12)
+      - name: CURR_SUB_LOCN_ID
+        expr: CURR_SUB_LOCN_ID
+        data_type: VARCHAR(40)
+      - name: ITEM_ID
+        expr: ITEM_ID
+        data_type: NUMBER(38,0)
+      - name: ITEM_NAME
+        expr: ITEM_NAME
+        data_type: VARCHAR(400)
+      - name: LPN_FACILITY_STATUS
+        expr: LPN_FACILITY_STATUS
+        data_type: NUMBER(38,0)
+      - name: LPN_ID
+        expr: LPN_ID
+        data_type: NUMBER(38,0)
+      - name: LPN_SHIPPED_FLAG
+        expr: LPN_SHIPPED_FLAG
+        data_type: NUMBER(38,0)
+      - name: LPN_STATUS
+        expr: LPN_STATUS
+        data_type: NUMBER(38,0)
+      - name: LPN_TYPE
+        expr: LPN_TYPE
+        data_type: NUMBER(38,0)
+      - name: O_FACILITY_ALIAS_ID
+        expr: O_FACILITY_ALIAS_ID
+        data_type: VARCHAR(64)
+      - name: O_FACILITY_ID
+        expr: O_FACILITY_ID
+        data_type: NUMBER(38,0)
+      - name: PARENT_LPN_ID
+        expr: PARENT_LPN_ID
+        data_type: NUMBER(38,0)
+      - name: PLANNED_TC_ASN_ID
+        expr: PLANNED_TC_ASN_ID
+        data_type: VARCHAR(200)
+      - name: REF_FIELD_1
+        expr: REF_FIELD_1
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_10
+        expr: REF_FIELD_10
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_2
+        expr: REF_FIELD_2
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_3
+        expr: REF_FIELD_3
+        data_type: VARCHAR(400)
+      - name: REF_FIELD_4
+        expr: REF_FIELD_4
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_5
+        expr: REF_FIELD_5
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_6
+        expr: REF_FIELD_6
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_7
+        expr: REF_FIELD_7
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_8
+        expr: REF_FIELD_8
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_9
+        expr: REF_FIELD_9
+        data_type: VARCHAR(100)
+      - name: SHIP_VIA
+        expr: SHIP_VIA
+        data_type: VARCHAR(16)
+      - name: TC_ASN_ID
+        expr: TC_ASN_ID
+        data_type: VARCHAR(200)
+      - name: TC_COMPANY_ID
+        expr: TC_COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: TC_LPN_ID
+        expr: TC_LPN_ID
+        data_type: VARCHAR(200)
+      - name: TC_ORDER_ID
+        expr: TC_ORDER_ID
+        data_type: VARCHAR(200)
+      - name: TC_PARENT_LPN_ID
+        expr: TC_PARENT_LPN_ID
+        data_type: VARCHAR(200)
+      - name: TC_PURCHASE_ORDERS_ID
+        expr: TC_PURCHASE_ORDERS_ID
+        data_type: VARCHAR(200)
+      - name: TC_REFERENCE_LPN_ID
+        expr: TC_REFERENCE_LPN_ID
+        data_type: VARCHAR(200)
+      - name: TC_SHIPMENT_ID
+        expr: TC_SHIPMENT_ID
+        data_type: VARCHAR(200)
+      - name: TRACKING_NBR
+        expr: TRACKING_NBR
+        data_type: VARCHAR(200)
+      - name: WAVE_NBR
+        expr: WAVE_NBR
+        data_type: VARCHAR(200)
+      - name: XB_ENVIRONMENT
+        expr: XB_ENVIRONMENT
+        data_type: VARCHAR(6)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+      - name: ARCHIVE_DTTM
+        expr: ARCHIVE_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: CREATED_DTTM
+        expr: CREATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LAST_UPDATED_DTTM
+        expr: LAST_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LPN_FACILITY_STAT_UPDATED_DTTM
+        expr: LPN_FACILITY_STAT_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LPN_STATUS_UPDATED_DTTM
+        expr: LPN_STATUS_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: RCVD_DTTM
+        expr: RCVD_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: SHIPPED_DTTM
+        expr: SHIPPED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+    facts:
+      - name: ESTIMATED_VOLUME
+        expr: ESTIMATED_VOLUME
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: ESTIMATED_WEIGHT
+        expr: ESTIMATED_WEIGHT
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: FREIGHT_CHARGE
+        expr: FREIGHT_CHARGE
+        data_type: NUMBER(11,2)
+        access_modifier: public_access
+      - name: REF_NUM1
+        expr: REF_NUM1
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM2
+        expr: REF_NUM2
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM3
+        expr: REF_NUM3
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM4
+        expr: REF_NUM4
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM5
+        expr: REF_NUM5
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: WIDTH
+        expr: WIDTH
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+    primary_key:
+      columns:
+        - LPN_ID
+    unique_keys:
+      - columns:
+          - TC_LPN_ID
+  - name: VW_LPN_DETAIL
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_LPN_DETAIL_
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: ASN_DTL_ID
+        expr: ASN_DTL_ID
+        data_type: NUMBER(38,0)
+      - name: BUSINESS_PARTNER_ID
+        expr: BUSINESS_PARTNER_ID
+        data_type: VARCHAR(40)
+      - name: CREATED_SOURCE
+        expr: CREATED_SOURCE
+        data_type: VARCHAR(200)
+      - name: CREATED_SOURCE_TYPE
+        expr: CREATED_SOURCE_TYPE
+        data_type: NUMBER(38,0)
+      - name: CUT_NBR
+        expr: CUT_NBR
+        data_type: VARCHAR(48)
+      - name: DISTRIBUTION_ORDER_DTL_ID
+        expr: DISTRIBUTION_ORDER_DTL_ID
+        data_type: NUMBER(38,0)
+      - name: INVENTORY_TYPE
+        expr: INVENTORY_TYPE
+        data_type: VARCHAR(4)
+      - name: ITEM_ATTR_1
+        expr: ITEM_ATTR_1
+        data_type: VARCHAR(40)
+      - name: ITEM_ATTR_2
+        expr: ITEM_ATTR_2
+        data_type: VARCHAR(40)
+      - name: ITEM_ATTR_3
+        expr: ITEM_ATTR_3
+        data_type: VARCHAR(40)
+      - name: ITEM_ATTR_4
+        expr: ITEM_ATTR_4
+        data_type: VARCHAR(40)
+      - name: ITEM_ATTR_5
+        expr: ITEM_ATTR_5
+        data_type: VARCHAR(40)
+      - name: ITEM_ID
+        expr: ITEM_ID
+        data_type: NUMBER(38,0)
+      - name: ITEM_NAME
+        expr: ITEM_NAME
+        data_type: VARCHAR(400)
+      - name: LAST_UPDATED_SOURCE
+        expr: LAST_UPDATED_SOURCE
+        data_type: VARCHAR(200)
+      - name: LAST_UPDATED_SOURCE_TYPE
+        expr: LAST_UPDATED_SOURCE_TYPE
+        data_type: NUMBER(38,0)
+      - name: LPN_DETAIL_ID
+        expr: LPN_DETAIL_ID
+        data_type: NUMBER(38,0)
+      - name: LPN_ID
+        expr: LPN_ID
+        data_type: NUMBER(38,0)
+      - name: PURCHASE_ORDERS_LINE_ID
+        expr: PURCHASE_ORDERS_LINE_ID
+        data_type: NUMBER(38,0)
+      - name: REF_FIELD_1
+        expr: REF_FIELD_1
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_10
+        expr: REF_FIELD_10
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_2
+        expr: REF_FIELD_2
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_3
+        expr: REF_FIELD_3
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_4
+        expr: REF_FIELD_4
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_5
+        expr: REF_FIELD_5
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_6
+        expr: REF_FIELD_6
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_7
+        expr: REF_FIELD_7
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_8
+        expr: REF_FIELD_8
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_9
+        expr: REF_FIELD_9
+        data_type: VARCHAR(100)
+      - name: TC_COMPANY_ID
+        expr: TC_COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: TC_ORDER_LINE_ID
+        expr: TC_ORDER_LINE_ID
+        data_type: VARCHAR(120)
+      - name: TC_PURCHASE_ORDERS_ID
+        expr: TC_PURCHASE_ORDERS_ID
+        data_type: VARCHAR(200)
+      - name: XB_ENVIRONMENT
+        expr: XB_ENVIRONMENT
+        data_type: VARCHAR(6)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+      - name: ARCHIVE_DTTM
+        expr: ARCHIVE_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: CREATED_DTTM
+        expr: CREATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LAST_UPDATED_DTTM
+        expr: LAST_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: SHIP_BY_DATE
+        expr: SHIP_BY_DATE
+        data_type: DATE
+    facts:
+      - name: INITIAL_QTY
+        expr: INITIAL_QTY
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: RECEIVED_QTY
+        expr: RECEIVED_QTY
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: REF_NUM1
+        expr: REF_NUM1
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM2
+        expr: REF_NUM2
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM3
+        expr: REF_NUM3
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM4
+        expr: REF_NUM4
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM5
+        expr: REF_NUM5
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: SHIPPED_QTY
+        expr: SHIPPED_QTY
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: SIZE_VALUE
+        expr: SIZE_VALUE
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: WEIGHT
+        expr: WEIGHT
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+    unique_keys:
+      - columns:
+          - DISTRIBUTION_ORDER_DTL_ID
+  - name: VW_ORDERS
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_ORDERS_
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: BILL_ACCT_NBR
+        expr: BILL_ACCT_NBR
+        data_type: VARCHAR(200)
+      - name: D_ADDRESS_1
+        expr: D_ADDRESS_1
+        data_type: VARCHAR(300)
+      - name: D_ADDRESS_2
+        expr: D_ADDRESS_2
+        data_type: VARCHAR(300)
+      - name: D_CITY
+        expr: D_CITY
+        data_type: VARCHAR(160)
+      - name: D_CONTACT
+        expr: D_CONTACT
+        data_type: VARCHAR(364)
+      - name: D_COUNTRY_CODE
+        expr: D_COUNTRY_CODE
+        data_type: VARCHAR(8)
+      - name: D_FACILITY_ALIAS_ID
+        expr: D_FACILITY_ALIAS_ID
+        data_type: VARCHAR(64)
+      - name: D_NAME
+        expr: D_NAME
+        data_type: VARCHAR(364)
+      - name: D_POSTAL_CODE
+        expr: D_POSTAL_CODE
+        data_type: VARCHAR(40)
+      - name: D_STATE_PROV
+        expr: D_STATE_PROV
+        data_type: VARCHAR(12)
+      - name: DISTRIBUTION_SHIP_VIA
+        expr: DISTRIBUTION_SHIP_VIA
+        data_type: VARCHAR(16)
+      - name: DO_STATUS
+        expr: DO_STATUS
+        data_type: NUMBER(38,0)
+      - name: IS_ORIGINAL_ORDER
+        expr: IS_ORIGINAL_ORDER
+        data_type: NUMBER(38,0)
+      - name: ORDER_ID
+        expr: ORDER_ID
+        data_type: NUMBER(38,0)
+      - name: ORDER_STATUS_DESCRIPTION
+        expr: ORDER_STATUS_DESCRIPTION
+        data_type: VARCHAR(26)
+      - name: ORDER_TYPE
+        expr: ORDER_TYPE
+        data_type: VARCHAR(80)
+      - name: PRIORITY
+        expr: PRIORITY
+        data_type: NUMBER(38,0)
+      - name: PURCHASE_ORDER_NUMBER
+        expr: PURCHASE_ORDER_NUMBER
+        data_type: VARCHAR(200)
+      - name: REF_FIELD_1
+        expr: REF_FIELD_1
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_10
+        synonyms:
+          - Sub brand of company CWHOINT
+        expr: REF_FIELD_10
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_2
+        expr: REF_FIELD_2
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_3
+        expr: REF_FIELD_3
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_4
+        expr: REF_FIELD_4
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_6
+        expr: REF_FIELD_6
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_7
+        expr: REF_FIELD_7
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_8
+        expr: REF_FIELD_8
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_9
+        expr: REF_FIELD_9
+        data_type: VARCHAR(100)
+      - name: SHIP_GROUP_ID
+        expr: SHIP_GROUP_ID
+        data_type: VARCHAR(60)
+      - name: TC_COMPANY_ID
+        expr: TC_COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: TC_ORDER_ID
+        expr: TC_ORDER_ID
+        data_type: VARCHAR(200)
+      - name: XB_ENVIRONMENT
+        expr: XB_ENVIRONMENT
+        data_type: VARCHAR(6)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+      - name: ACTUAL_SHIPPED_DTTM
+        expr: ACTUAL_SHIPPED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: ADVT_DATE
+        expr: ADVT_DATE
+        data_type: DATE
+      - name: ARCHIVE_DTTM
+        expr: ARCHIVE_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: CANCEL_DTTM
+        expr: CANCEL_DTTM
+        data_type: DATE
+      - name: CREATED_DTTM
+        expr: CREATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: MUST_RELEASE_BY_DTTM
+        expr: MUST_RELEASE_BY_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: ORDER_DATE_DTTM
+        expr: ORDER_DATE_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+    facts:
+      - name: REF_NUM1
+        expr: REF_NUM1
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM2
+        expr: REF_NUM2
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM3
+        expr: REF_NUM3
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM4
+        expr: REF_NUM4
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM5
+        expr: REF_NUM5
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: TOTAL_NBR_OF_UNITS
+        expr: TOTAL_NBR_OF_UNITS
+        data_type: NUMBER(15,4)
+        access_modifier: public_access
+    primary_key:
+      columns:
+        - ORDER_ID
+    unique_keys:
+      - columns:
+          - TC_ORDER_ID
+      - columns:
+          - TC_COMPANY_ID
+  - name: VW_ORDER_LINE_ITEM
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_ORDER_LINE_ITEM_
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: DESCRIPTION
+        expr: DESCRIPTION
+        data_type: VARCHAR(400)
+      - name: DO_DTL_STATUS
+        expr: DO_DTL_STATUS
+        data_type: NUMBER(38,0)
+      - name: ITEM_ID
+        expr: ITEM_ID
+        data_type: NUMBER(38,0)
+      - name: ITEM_NAME
+        expr: ITEM_NAME
+        data_type: VARCHAR(400)
+      - name: LINE_ITEM_ID
+        expr: LINE_ITEM_ID
+        data_type: NUMBER(38,0)
+      - name: ORDER_ID
+        expr: ORDER_ID
+        data_type: NUMBER(38,0)
+      - name: ORDER_LINE_ID
+        expr: ORDER_LINE_ID
+        data_type: NUMBER(38,0)
+      - name: ORDER_STATUS_DESCRIPTION
+        expr: ORDER_STATUS_DESCRIPTION
+        data_type: VARCHAR(26)
+      - name: REF_FIELD10
+        expr: REF_FIELD10
+        data_type: VARCHAR(100)
+      - name: REF_FIELD2
+        expr: REF_FIELD2
+        data_type: VARCHAR(100)
+      - name: REF_FIELD3
+        expr: REF_FIELD3
+        data_type: VARCHAR(100)
+      - name: REF_FIELD6
+        expr: REF_FIELD6
+        data_type: VARCHAR(100)
+      - name: REF_FIELD9
+        expr: REF_FIELD9
+        data_type: VARCHAR(100)
+      - name: TC_COMPANY_ID
+        expr: TC_COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: WAVE_NBR
+        expr: WAVE_NBR
+        data_type: VARCHAR(200)
+      - name: XB_ENVIRONMENT
+        expr: XB_ENVIRONMENT
+        data_type: VARCHAR(6)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+      - name: ACTUAL_SHIPPED_DTTM
+        expr: ACTUAL_SHIPPED_DTTM
+        data_type: DATE
+      - name: ARCHIVE_DTTM
+        expr: ARCHIVE_DTTM
+        data_type: TIMESTAMP_LTZ(9)
+      - name: CREATED_DTTM
+        expr: CREATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LAST_UPDATED_DTTM
+        expr: LAST_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+    facts:
+      - name: ALLOCATED_QTY
+        expr: ALLOCATED_QTY
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: ORIG_ORDER_QTY
+        expr: ORIG_ORDER_QTY
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: PPACK_QTY
+        expr: PPACK_QTY
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: REF_NUM1
+        expr: REF_NUM1
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM2
+        expr: REF_NUM2
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM3
+        expr: REF_NUM3
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM4
+        expr: REF_NUM4
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM5
+        expr: REF_NUM5
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: SHIPPED_QTY
+        expr: SHIPPED_QTY
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: TOTAL_MONETARY_VALUE
+        expr: TOTAL_MONETARY_VALUE
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: UNIT_COST
+        expr: UNIT_COST
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: UNIT_MONETARY_VALUE
+        expr: UNIT_MONETARY_VALUE
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: UNIT_PRICE_AMOUNT
+        expr: UNIT_PRICE_AMOUNT
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: UNIT_VOL
+        expr: UNIT_VOL
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: UNIT_WT
+        expr: UNIT_WT
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+    unique_keys:
+      - columns:
+          - ORDER_ID
+      - columns:
+          - ITEM_ID
+      - columns:
+          - LINE_ITEM_ID
+  - name: VW_TASK_DTL
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_TASK_DTL_
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: CNTRY_OF_ORGN
+        expr: CNTRY_OF_ORGN
+        data_type: VARCHAR(16)
+      - name: ITEM_ID
+        expr: ITEM_ID
+        data_type: NUMBER(38,0)
+      - name: LINE_ITEM_ID
+        expr: LINE_ITEM_ID
+        data_type: NUMBER(38,0)
+      - name: PROD_STAT
+        expr: PROD_STAT
+        data_type: VARCHAR(12)
+      - name: SKU_ATTR_1
+        expr: SKU_ATTR_1
+        data_type: VARCHAR(40)
+      - name: SKU_ATTR_2
+        expr: SKU_ATTR_2
+        data_type: VARCHAR(40)
+      - name: SKU_ATTR_3
+        expr: SKU_ATTR_3
+        data_type: VARCHAR(40)
+      - name: SKU_ATTR_4
+        expr: SKU_ATTR_4
+        data_type: VARCHAR(40)
+      - name: SKU_ATTR_5
+        expr: SKU_ATTR_5
+        data_type: VARCHAR(40)
+      - name: TASK_DTL_ID
+        expr: TASK_DTL_ID
+        data_type: NUMBER(38,0)
+      - name: TASK_HDR_ID
+        expr: TASK_HDR_ID
+        data_type: NUMBER(38,0)
+      - name: TASK_ID
+        expr: TASK_ID
+        data_type: NUMBER(38,0)
+      - name: TC_ORDER_ID
+        expr: TC_ORDER_ID
+        data_type: VARCHAR(200)
+      - name: USER_ID
+        expr: USER_ID
+        data_type: VARCHAR(200)
+      - name: XB_ENVIRONMENT
+        expr: XB_ENVIRONMENT
+        data_type: VARCHAR(6)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+      - name: ARCHIVE_DTTM
+        expr: ARCHIVE_DTTM
+        data_type: TIMESTAMP_LTZ(9)
+    primary_key:
+      columns:
+        - TASK_DTL_ID
+    unique_keys:
+      - columns:
+          - TASK_HDR_ID
+      - columns:
+          - TC_ORDER_ID
+      - columns:
+          - ITEM_ID
+  - name: VW_TASK_HDR
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_TASK_HDR_
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: ITEM_ID
+        expr: ITEM_ID
+        data_type: NUMBER(38,0)
+      - name: ORIG_TASK_ID
+        expr: ORIG_TASK_ID
+        data_type: NUMBER(38,0)
+      - name: PICK_CART_TYPE
+        expr: PICK_CART_TYPE
+        data_type: VARCHAR(4)
+      - name: STAT_CODE
+        expr: STAT_CODE
+        data_type: NUMBER(38,0)
+      - name: TASK_DESC
+        expr: TASK_DESC
+        data_type: VARCHAR(160)
+      - name: TASK_HDR_ID
+        expr: TASK_HDR_ID
+        data_type: NUMBER(38,0)
+      - name: TASK_ID
+        expr: TASK_ID
+        data_type: NUMBER(38,0)
+      - name: TASK_TYPE
+        expr: TASK_TYPE
+        data_type: VARCHAR(8)
+      - name: USER_ID
+        expr: USER_ID
+        data_type: VARCHAR(200)
+      - name: WHSE
+        expr: WHSE
+        data_type: VARCHAR(12)
+      - name: XB_ENVIROMENT
+        expr: XB_ENVIROMENT
+        data_type: VARCHAR(6)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+      - name: ARCHIVE_DTTM
+        expr: ARCHIVE_DTTM
+        data_type: TIMESTAMP_LTZ(9)
+      - name: CREATE_DATE_TIME
+        expr: CREATE_DATE_TIME
+        data_type: TIMESTAMP_NTZ(9)
+      - name: ERLST_START_DATE_TIME
+        expr: ERLST_START_DATE_TIME
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LTST_CMPL_DATE_TIME
+        expr: LTST_CMPL_DATE_TIME
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LTST_START_DATE_TIME
+        expr: LTST_START_DATE_TIME
+        data_type: DATE
+  - name: VW_WM_INVENTORY
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_WM_INVENTORY_
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: ALLOCATABLE
+        expr: ALLOCATABLE
+        data_type: VARCHAR(4)
+      - name: BATCH_NBR
+        expr: BATCH_NBR
+        data_type: VARCHAR(80)
+      - name: C_FACILITY_ID
+        expr: C_FACILITY_ID
+        data_type: NUMBER(38,0)
+      - name: CNTRY_OF_ORGN
+        expr: CNTRY_OF_ORGN
+        data_type: VARCHAR(16)
+      - name: CREATED_SOURCE
+        expr: CREATED_SOURCE
+        data_type: VARCHAR(200)
+      - name: CREATED_SOURCE_TYPE
+        expr: CREATED_SOURCE_TYPE
+        data_type: NUMBER(38,0)
+      - name: INBOUND_OUTBOUND_INDICATOR
+        expr: INBOUND_OUTBOUND_INDICATOR
+        data_type: VARCHAR(4)
+      - name: INVENTORY_TYPE
+        expr: INVENTORY_TYPE
+        data_type: VARCHAR(4)
+      - name: ITEM_ATTR_1
+        expr: ITEM_ATTR_1
+        data_type: VARCHAR(40)
+      - name: ITEM_ATTR_2
+        expr: ITEM_ATTR_2
+        data_type: VARCHAR(40)
+      - name: ITEM_ATTR_3
+        expr: ITEM_ATTR_3
+        data_type: VARCHAR(40)
+      - name: ITEM_ATTR_4
+        expr: ITEM_ATTR_4
+        data_type: VARCHAR(40)
+      - name: ITEM_ATTR_5
+        expr: ITEM_ATTR_5
+        data_type: VARCHAR(40)
+      - name: ITEM_ID
+        expr: ITEM_ID
+        data_type: NUMBER(38,0)
+      - name: LAST_UPDATED_SOURCE
+        expr: LAST_UPDATED_SOURCE
+        data_type: VARCHAR(200)
+      - name: LAST_UPDATED_SOURCE_TYPE
+        expr: LAST_UPDATED_SOURCE_TYPE
+        data_type: NUMBER(38,0)
+      - name: LOCATION_DTL_ID
+        expr: LOCATION_DTL_ID
+        data_type: NUMBER(38,0)
+      - name: LOCATION_ID
+        expr: LOCATION_ID
+        data_type: VARCHAR(40)
+      - name: LOCN_CLASS
+        expr: LOCN_CLASS
+        data_type: VARCHAR(4)
+      - name: LPN_DETAIL_ID
+        expr: LPN_DETAIL_ID
+        data_type: NUMBER(38,0)
+      - name: LPN_ID
+        expr: LPN_ID
+        data_type: NUMBER(38,0)
+      - name: MARKED_FOR_DELETE
+        expr: MARKED_FOR_DELETE
+        data_type: VARCHAR(4)
+      - name: PRODUCT_STATUS
+        expr: PRODUCT_STATUS
+        data_type: VARCHAR(12)
+      - name: RECALL_ID
+        expr: RECALL_ID
+        data_type: NUMBER(38,0)
+      - name: TC_COMPANY_ID
+        expr: TC_COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: TC_LPN_ID
+        expr: TC_LPN_ID
+        data_type: VARCHAR(200)
+      - name: TRANSITIONAL_INVENTORY_TYPE
+        expr: TRANSITIONAL_INVENTORY_TYPE
+        data_type: NUMBER(38,0)
+      - name: WM_INVENTORY_ID
+        expr: WM_INVENTORY_ID
+        data_type: NUMBER(38,0)
+      - name: WM_VERSION_ID
+        expr: WM_VERSION_ID
+        data_type: NUMBER(38,0)
+      - name: XB_ENVIRONMENT
+        expr: XB_ENVIRONMENT
+        data_type: VARCHAR(6)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+      - name: ARCHIVE_DTTM
+        expr: ARCHIVE_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: CREATED_DTTM
+        expr: CREATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LAST_UPDATED_DTTM
+        expr: LAST_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+    facts:
+      - name: CUMULATIVE_QTY
+        expr: CUMULATIVE_QTY
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: ON_HAND_QTY
+        expr: ON_HAND_QTY
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: PACK_QTY
+        expr: PACK_QTY
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: SUB_PACK_QTY
+        expr: SUB_PACK_QTY
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: TO_BE_CONSOLIDATED_QTY
+        expr: TO_BE_CONSOLIDATED_QTY
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: TO_BE_FILLED_QTY
+        expr: TO_BE_FILLED_QTY
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: WM_ALLOCATED_QTY
+        expr: WM_ALLOCATED_QTY
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+    unique_keys:
+      - columns:
+          - ITEM_ID
+relationships:
+  - name: CAT_COMPANY_ITEM_CBO
+    left_table: VW_CAT_COMPANY
+    right_table: VW_ITEM_CBO
+    relationship_columns:
+      - left_column: COMPANY_ID
+        right_column: COMPANY_ID
+  - name: CAT_COMPANY_ORDERS
+    left_table: VW_CAT_COMPANY
+    right_table: VW_ORDERS
+    relationship_columns:
+      - left_column: COMPANY_ID
+        right_column: TC_COMPANY_ID
+  - name: ITEM_CBO_ORDER_LINE_ITEM
+    left_table: VW_ITEM_CBO
+    right_table: VW_ORDER_LINE_ITEM
+    relationship_columns:
+      - left_column: ITEM_ID
+        right_column: ITEM_ID
+  - name: ITEM_CBO_TASK_DTL
+    left_table: VW_ITEM_CBO
+    right_table: VW_TASK_DTL
+    relationship_columns:
+      - left_column: ITEM_ID
+        right_column: ITEM_ID
+  - name: ITEM_CBO_WM_INVENTORY
+    left_table: VW_ITEM_CBO
+    right_table: VW_WM_INVENTORY
+    relationship_columns:
+      - left_column: ITEM_ID
+        right_column: ITEM_ID
+  - name: LPN_DETAIL_LPN
+    left_table: VW_LPN_DETAIL
+    right_table: VW_LPN
+    relationship_columns:
+      - left_column: LPN_ID
+        right_column: LPN_ID
+  - name: LPN_DETAIL_ORDER_LINE_ITEM
+    left_table: VW_LPN_DETAIL
+    right_table: VW_ORDER_LINE_ITEM
+    relationship_columns:
+      - left_column: DISTRIBUTION_ORDER_DTL_ID
+        right_column: LINE_ITEM_ID
+  - name: ORDERS_ORDER_LINE_ITEM
+    left_table: VW_ORDERS
+    right_table: VW_ORDER_LINE_ITEM
+    relationship_columns:
+      - left_column: ORDER_ID
+        right_column: ORDER_ID
+  - name: ORDERS_TASK_DTL
+    left_table: VW_ORDERS
+    right_table: VW_TASK_DTL
+    relationship_columns:
+      - left_column: TC_ORDER_ID
+        right_column: TC_ORDER_ID
+  - name: TASK_HDR_TASK_DTL
+    left_table: VW_TASK_HDR
+    right_table: VW_TASK_DTL
+    relationship_columns:
+      - left_column: TASK_HDR_ID
+        right_column: TASK_HDR_ID
+verified_queries:
+  - name: '"What is the total number of orders?"'
+    sql: |-
+      SELECT
+        COUNT(tc_order_id) AS total_orders
+      FROM
+        vw_orders vw_orders
+        INNER JOIN QA_BI.WM.VW_CAT_COMPANY VW_CAT_COMPANY ON vw_orders.TC_COMPANY_ID = VW_CAT_COMPANY.company_id
+      WHERE
+        archive_dttm is null
+        AND _FIVETRAN_DELETED = FALSE
+    question: What is the total number of orders?
+    verified_at: 1769108960
+    verified_by: DACORONA
+    use_as_onboarding_question: false
+  - name: '"What is the historical total number of orders?"'
+    sql: |-
+      SELECT
+        COUNT(tc_order_id) AS total_orders
+      FROM
+        vw_orders vw_orders
+        INNER JOIN QA_BI.WM.VW_CAT_COMPANY VW_CAT_COMPANY ON vw_orders.TC_COMPANY_ID = VW_CAT_COMPANY.company_id
+      WHERE
+        _FIVETRAN_DELETED = FALSE
+    question: What is the historical total number of orders?
+    verified_at: 1769097884
+    verified_by: DACORONA
+    use_as_onboarding_question: false
+  - name: '"orders by company?"'
+    sql: |-
+      SELECT
+        vw_cat_company.company,
+        COUNT(vw_orders.tc_order_id) AS order_count
+      FROM
+        vw_orders AS vw_orders
+        INNER JOIN vw_cat_company AS vw_cat_company ON vw_orders.tc_company_id = vw_cat_company.company_id
+      WHERE
+        vw_orders._fivetran_deleted = FALSE
+      AND 
+        vw_orders.archive_dttm is null
+      GROUP BY
+        vw_cat_company.company
+      ORDER BY
+        order_count DESC NULLS LAST
+    question: orders by company?
+    verified_at: 1769012039
+    verified_by: DACORONA
+    use_as_onboarding_question: false
+  - name: '"how many lines have the orders ?"'
+    sql: |-
+      SELECT
+        COUNT(vw_oli.line_item_id) AS line_item_count
+      FROM
+        vw_orders AS vw_orders
+        INNER JOIN QA_BI.WM.VW_CAT_COMPANY VW_CAT_COMPANY ON vw_orders.TC_COMPANY_ID = VW_CAT_COMPANY.company_id
+        INNER JOIN vw_order_line_item AS vw_oli ON vw_orders.order_id = vw_oli.order_id
+      WHERE
+        vw_orders._fivetran_deleted = FALSE
+        AND vw_orders.archive_dttm IS NULL
+    question: how many lines have the orders ?
+    verified_at: 1769097937
+    verified_by: DACORONA
+    use_as_onboarding_question: false
+  - name: '"give me the orders and the full detail of your lines?"'
+    sql: |-
+      SELECT
+        vw_orders.tc_order_id,
+        vw_orders.order_status_description,
+        vw_orders.order_type,
+        vw_orders.distribution_ship_via,
+        vw_orders.d_name,
+        vw_orders.d_address_1,
+        vw_orders.d_address_2,
+        vw_orders.d_city,
+        vw_orders.d_state_prov,
+        vw_orders.d_postal_code,
+        vw_orders.d_country_code,
+        vw_orders.d_contact,
+        vw_orders.actual_shipped_dttm,
+        vw_orders.created_dttm,
+        vw_oli.line_item_id,
+        vw_oli.item_name,
+        vw_oli.description,
+        vw_oli.order_status_description AS line_status,
+        vw_oli.orig_order_qty,
+        vw_oli.allocated_qty,
+        vw_oli.shipped_qty,
+        vw_oli.unit_price_amount,
+        vw_oli.total_monetary_value
+      FROM
+        vw_orders AS vw_orders
+        INNER JOIN vw_cat_company AS vw_cat_company ON vw_orders.tc_company_id = vw_cat_company.company_id
+        INNER JOIN vw_order_line_item AS vw_oli ON vw_orders.order_id = vw_oli.order_id
+      WHERE
+        vw_orders._fivetran_deleted = FALSE
+        AND vw_orders.archive_dttm IS NULL
+      ORDER BY
+        vw_oli.line_item_id
+    question: give me the orders and the full detail of your lines?
+    verified_at: 1769097983
+    verified_by: DACORONA
+    use_as_onboarding_question: false
+  - name: '"bring me the dimensions of the items?"'
+    sql: |-
+      SELECT
+        item_name,
+        unit_length,
+        unit_width,
+        unit_height,
+        unit_weight,
+        unit_volume
+      FROM
+        vw_item_cbo vw_item_cbo
+        INNER JOIN QA_BI.WM.VW_CAT_COMPANY VW_CAT_COMPANY ON vw_item_cbo.COMPANY_ID = VW_CAT_COMPANY.company_id
+      WHERE
+        _fivetran_deleted = FALSE
+      ORDER BY
+        last_updated_dttm DESC NULLS LAST
+      LIMIT
+        1
+        /* Generated by Cortex Analyst (request_id: e5a20da3-4e07-404b-a7d9-a8a9f231eeb2) */
+    question: bring me the dimensions of the items?
+    verified_at: 1769098007
+    verified_by: DACORONA
+    use_as_onboarding_question: false
+  - name: |-
+      "give me the details of the tasks about the order ORD221335?
+
+      "
+    sql: |-
+      SELECT
+        vw_task_hdr.task_id,
+        vw_task_hdr.task_type,
+        vw_task_hdr.task_desc,
+        vw_task_hdr.stat_code,
+        vw_task_hdr.whse,
+        vw_task_hdr.user_id,
+        vw_task_hdr.create_date_time,
+        vw_task_hdr.erlst_start_date_time,
+        vw_task_hdr.ltst_cmpl_date_time,
+        vw_task_dtl.task_dtl_id,
+        vw_task_dtl.item_id,
+        vw_task_dtl.sku_attr_1,
+        vw_task_dtl.sku_attr_2,
+        vw_task_dtl.sku_attr_3,
+        vw_task_dtl.sku_attr_4,
+        vw_task_dtl.sku_attr_5,
+        vw_task_dtl.prod_stat
+      FROM
+        vw_task_hdr AS vw_task_hdr
+        LEFT JOIN vw_task_dtl AS vw_task_dtl ON vw_task_hdr.task_hdr_id = vw_task_dtl.task_hdr_id
+        INNER JOIN vw_orders AS vw_orders ON vw_orders.tc_order_id = vw_task_dtl.tc_order_id
+        INNER JOIN qa_bi.wm.vw_cat_company as vw_cat_company ON vw_orders.tc_company_id = vw_cat_company.company_id
+      WHERE
+          vw_task_hdr._fivetran_deleted = FALSE
+        AND vw_task_hdr.archive_dttm IS NULL
+      ORDER BY
+        vw_task_hdr.create_date_time DESC NULLS LAST
+        /* Generated by Cortex Analyst (request_id: 116ab5c9-75cb-4c59-afe8-585c4088e5ce) */
+    question: |+
+      give me the details of the tasks about the orders?
+
+    verified_at: 1769111683
+    verified_by: DACORONA
+    use_as_onboarding_question: false
+  - name: '"task for the item?"'
+    sql: |-
+      SELECT
+        vw_task_hdr.task_id,
+        vw_task_hdr.task_type,
+        vw_task_hdr.task_desc,
+        vw_task_hdr.stat_code,
+        vw_task_hdr.whse,
+        vw_task_hdr.user_id,
+        vw_task_hdr.create_date_time,
+        vw_task_hdr.erlst_start_date_time,
+        vw_task_hdr.ltst_cmpl_date_time,
+        vw_task_dtl.task_dtl_id,
+        vw_task_dtl.item_id,
+        vw_task_dtl.sku_attr_1,
+        vw_task_dtl.sku_attr_2,
+        vw_task_dtl.sku_attr_3,
+        vw_task_dtl.sku_attr_4,
+        vw_task_dtl.sku_attr_5,
+        vw_task_dtl.prod_stat
+      FROM
+        vw_task_hdr AS vw_task_hdr
+        LEFT JOIN vw_task_dtl AS vw_task_dtl ON vw_task_hdr.task_hdr_id = vw_task_dtl.task_hdr_id
+        LEFT JOIN vw_item_cbo AS vw_item_cbo ON vw_item_cbo.item_id = vw_task_dtl.item_id
+        INNER JOIN qa_bi.wm.vw_cat_company AS vw_cat_company ON vw_item_cbo.company_id = vw_cat_company.company_id
+      WHERE
+        vw_task_hdr._fivetran_deleted = FALSE
+        AND vw_task_hdr.archive_dttm IS NULL
+      ORDER BY
+        vw_task_hdr.create_date_time DESC NULLS LAST
+        /* Generated by Cortex Analyst (request_id: 175939ad-d03c-4913-9010-2a7dc1870a32) */
+    question: task for the item?
+    verified_at: 1769112734
+    verified_by: DACORONA
+    use_as_onboarding_question: false
+module_custom_instructions:
+  question_categorization: |-
+    1. Enforced Security and Structure Rules
+    Grouping and Filtering by Company (CORE REQUIREMENT): Whenever the query involves core data views (vw_orders, vw_wm_inventory, vw_lpn, vw_item_cbo), you must perform an INNER JOIN with __vw_cat_company. The company column must be included in the final SELECT list and the GROUP BY clause (if applicable). This ensures the results are always segmented by company.
+
+    ID Column Restriction: Never include the columns company_id or tc_company_id in the final SELECT clause.
+
+    2. View Structure (CTEs)
+    You must initialize the following views at the beginning of the query:
+    __vw_orders (qa_bi.wm.vw_orders): Contains order_id, tc_order_id, tc_company_id, created_dttm.
+    __vw_cat_company (qa_bi.wm.vw_cat_company): Contains company, company_id.
+
+    3. JOIN Structure
+    Standard Condition: The security JOIN must be: INNER JOIN __vw_cat_company AS c ON c.company_id = [data_table_alias].tc_company_id.
+
+    4. When the user uses "Contains" or "containing", we should use a sentence like when the user use "Equals" or are or is, that's mean =.
+
+    5. Every time that the user request information without specify data range, filter data in tables that contains the field ARCHIVE_DTTM as ARCHIVE_DTTM is null.
+
+    6. Each time the user requests information without specifying the data range, it filters the data in the tables that contain the ARCHIVE_DTTM field as where ARCHIVE_DTTM is null.
+
+    7. Every time the user shares a company name, it will be converted to uppercase.

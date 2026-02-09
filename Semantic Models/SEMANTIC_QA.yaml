@@ -1,0 +1,1344 @@
+name: SEMANTIC_QA
+tables:
+  - name: VW_CAT_COMPANY
+    synonyms:
+      - Bussines Unit
+      - Cat Company.
+      - Company
+      - Company Name
+    description: This view provides a consolidated view of company information, including warehouse details, company identifiers, titles, and locations, along with an activity flag and city information, sourced from the cat_company table in the google_sheets schema.
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_CAT_COMPANY
+    dimensions:
+      - name: CITY
+        expr: CITY
+        data_type: VARCHAR(256)
+      - name: CODE
+        expr: CODE
+        data_type: VARCHAR(256)
+      - name: COMPANY
+        expr: COMPANY
+        data_type: VARCHAR(256)
+      - name: COMPANY_ID
+        expr: COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: COMPANY_TITLE
+        expr: COMPANY_TITLE
+        data_type: VARCHAR(256)
+      - name: ID_WHS
+        expr: ID_WHS
+        data_type: NUMBER(38,0)
+      - name: WHS
+        expr: WHS
+        data_type: VARCHAR(256)
+    unique_keys:
+      - columns:
+          - COMPANY_ID
+  - name: VW_CAT_DOSTATUS
+    description: The table contains records of delivery order statuses and their descriptions. Each record maps a status code to its corresponding definition.
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_CAT_DOSTATUS
+    dimensions:
+      - name: STATUS
+        description: Current status of the delivery order.
+        expr: STATUS
+        data_type: VARCHAR(26)
+        sample_values:
+          - Released
+          - Assigned to Pre-Processor
+          - Cancelled
+    facts:
+      - name: DO_STATUS
+        description: Numeric code indicating the current status of a delivery order.
+        expr: DO_STATUS
+        data_type: NUMBER(3,0)
+        access_modifier: public_access
+        sample_values:
+          - '101'
+          - '102'
+          - '100'
+    unique_keys:
+      - columns:
+          - DO_STATUS
+  - name: VW_DTS
+    synonyms:
+      - Delivery Information
+      - Delivery Tracking System
+      - DTS
+      - DTS_DATA_WAREHOUSE
+      - Logistics Data
+      - Package Information
+      - Package Tracking Data
+      - Shipping Data
+      - Shipping Information
+    description: This table appears to be a view that combines data from two different sources, XBPRDWMGOLD and DTS, into a single unified view. The data seems to be related to shipping and logistics, with columns such as tracking numbers, shipping addresses, package details, and charges. The view likely provides a comprehensive overview of shipping data, allowing for analysis and reporting on various aspects of the shipping process.
+    base_table:
+      database: QA_BI
+      schema: DTS
+      table: VW_DTS
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: _FIVETRAN_ID
+        expr: _FIVETRAN_ID
+        data_type: VARCHAR(256)
+      - name: CARRIER
+        synonyms:
+          - Carrier
+        expr: CARRIER
+        data_type: VARCHAR(100)
+      - name: CARRIER_SERVICE
+        synonyms:
+          - Carrier Service
+        expr: CARRIER_SERVICE
+        data_type: VARCHAR(100)
+      - name: CREATEDATE
+        expr: CREATEDATE
+        data_type: VARCHAR(100)
+      - name: D_MATCHED_ID
+        synonyms:
+          - id_match
+          - matched_id
+          - TC_LPN_ID
+        description: Unique identifier for a matched record in the data set.
+        expr: D_MATCHED_ID
+        data_type: VARCHAR(100)
+      - name: ID
+        expr: ID
+        data_type: VARCHAR(100)
+      - name: ORDERNUMBER
+        expr: ORDERNUMBER
+        data_type: VARCHAR(100)
+      - name: ORDERTYPE
+        expr: ORDERTYPE
+        data_type: VARCHAR(50)
+      - name: REFERENCEID
+        expr: REFERENCEID
+        data_type: VARCHAR(50)
+      - name: STATUS
+        expr: STATUS
+        data_type: VARCHAR(50)
+      - name: TRACKINGNUMBER
+        expr: TRACKINGNUMBER
+        data_type: VARCHAR(100)
+      - name: UPDATEDATE
+        expr: UPDATEDATE
+        data_type: VARCHAR(100)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+      - name: CREATED_DTTM
+        expr: CREATED_DTTM
+        data_type: TIMESTAMP_TZ(9)
+    facts:
+      - name: TOTALCHARGE
+        expr: TOTALCHARGE
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+    unique_keys:
+      - columns:
+          - D_MATCHED_ID
+  - name: VW_IMPEXP_PROGRAMA
+    synonyms:
+      - IMPEXP_PROGRAMA
+      - Import Export Plan
+      - Import Export Program
+      - Import Export Scheme
+      - International Logistics Program
+      - International Trade Program
+      - Logistics Program
+      - Shipping Program
+      - Shipping Scheme
+      - Trade Program
+    description: This table appears to store information related to international import and export shipping programs, including details about the shipment, container, transportation, customs, and financial transactions. It seems to be a comprehensive log of all activities and updates associated with a shipment, from creation to delivery, and includes fields for tracking, reporting, and auditing purposes.
+    base_table:
+      database: QA_BI
+      schema: XBADMIN
+      table: VW_IMPEXP_PROGRAMA
+    dimensions:
+      - name: ID_CONTPROGRAMA
+        expr: ID_CONTPROGRAMA
+        data_type: NUMBER(38,0)
+    time_dimensions:
+      - name: FECHASALIDA
+        expr: FECHASALIDA
+        data_type: TIMESTAMP_NTZ(9)
+    unique_keys:
+      - columns:
+          - ID_CONTPROGRAMA
+  - name: VW_ITEM_CBO
+    synonyms:
+      - ITEM_BASE_OBJECT
+      - ITEM_CATALOG_BASE_OBJECT
+      - ITEM_CBO
+      - ITEM_MASTER
+      - ITEM_REFERENCE
+      - PRODUCT_CATALOG
+      - PRODUCT_MASTER
+      - PRODUCT_REFERENCE
+    description: This view provides a unified view of item master data from multiple sources, including GOLD, SILVER, and RY, to support enterprise-wide visibility and management of product information, including item attributes, dimensions, weights, and other relevant details.
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_ITEM_CBO
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: AUDIT_CREATED_SOURCE
+        expr: AUDIT_CREATED_SOURCE
+        data_type: VARCHAR(400)
+      - name: AUDIT_LAST_UPDATED_SOURCE
+        expr: AUDIT_LAST_UPDATED_SOURCE
+        data_type: VARCHAR(400)
+      - name: AUDIT_LAST_UPDATED_SOURCE_TYPE
+        expr: AUDIT_LAST_UPDATED_SOURCE_TYPE
+        data_type: NUMBER(38,0)
+      - name: BRAND
+        expr: BRAND
+        data_type: VARCHAR(60)
+      - name: CATCH_WEIGHT_ITEM
+        expr: CATCH_WEIGHT_ITEM
+        data_type: VARCHAR(4)
+      - name: CHANNEL_TYPE_ID
+        expr: CHANNEL_TYPE_ID
+        data_type: NUMBER(38,0)
+      - name: COLOR_DESC
+        expr: COLOR_DESC
+        data_type: VARCHAR(200)
+      - name: COLOR_SEQ
+        expr: COLOR_SEQ
+        data_type: NUMBER(38,0)
+      - name: COMMODITY_CLASS_ID
+        expr: COMMODITY_CLASS_ID
+        data_type: NUMBER(38,0)
+      - name: COMMODITY_CODE_ID
+        expr: COMMODITY_CODE_ID
+        data_type: NUMBER(38,0)
+      - name: COMMODITY_LEVEL_DESC
+        expr: COMMODITY_LEVEL_DESC
+        data_type: VARCHAR(600)
+      - name: COMPANY_ID
+        expr: COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: DATABASE_QTY_UOM_ID
+        expr: DATABASE_QTY_UOM_ID
+        data_type: NUMBER(38,0)
+      - name: DESCRIPTION
+        expr: DESCRIPTION
+        data_type: VARCHAR(400)
+      - name: DIMENSION_UOM_ID
+        expr: DIMENSION_UOM_ID
+        data_type: NUMBER(38,0)
+      - name: DISPLAY_QTY_UOM_ID
+        expr: DISPLAY_QTY_UOM_ID
+        data_type: NUMBER(38,0)
+      - name: GIFT_CARD_TYPE
+        expr: GIFT_CARD_TYPE
+        data_type: VARCHAR(60)
+      - name: IS_EXCHANGEABLE
+        expr: IS_EXCHANGEABLE
+        data_type: NUMBER(38,0)
+      - name: IS_RETURNABLE
+        expr: IS_RETURNABLE
+        data_type: NUMBER(38,0)
+      - name: ITEM_BAR_CODE
+        expr: ITEM_BAR_CODE
+        data_type: VARCHAR(200)
+      - name: ITEM_COLOR
+        expr: ITEM_COLOR
+        data_type: VARCHAR(200)
+      - name: ITEM_COLOR_SFX
+        expr: ITEM_COLOR_SFX
+        data_type: VARCHAR(32)
+      - name: ITEM_DESC_SHORT
+        expr: ITEM_DESC_SHORT
+        data_type: VARCHAR(200)
+      - name: ITEM_DISPOSITION
+        expr: ITEM_DISPOSITION
+        data_type: VARCHAR(60)
+      - name: ITEM_ID
+        expr: ITEM_ID
+        data_type: NUMBER(38,0)
+      - name: ITEM_IMAGE_FILENAME
+        expr: ITEM_IMAGE_FILENAME
+        data_type: VARCHAR(1024)
+      - name: ITEM_NAME
+        synonyms:
+          - ITEM
+          - ITEM NAME
+          - ITEM_NAME
+        expr: ITEM_NAME
+        data_type: VARCHAR(400)
+      - name: ITEM_ORIENTATION
+        expr: ITEM_ORIENTATION
+        data_type: VARCHAR(4)
+      - name: ITEM_QUALITY
+        expr: ITEM_QUALITY
+        data_type: VARCHAR(4)
+      - name: ITEM_QUALITY_CODE
+        expr: ITEM_QUALITY_CODE
+        data_type: NUMBER(38,0)
+      - name: ITEM_SEASON
+        expr: ITEM_SEASON
+        data_type: VARCHAR(64)
+      - name: ITEM_SEASON_YEAR
+        expr: ITEM_SEASON_YEAR
+        data_type: VARCHAR(16)
+      - name: ITEM_SECOND_DIM
+        expr: ITEM_SECOND_DIM
+        data_type: VARCHAR(200)
+      - name: ITEM_SIZE_DESC
+        expr: ITEM_SIZE_DESC
+        data_type: VARCHAR(200)
+      - name: ITEM_STYLE
+        expr: ITEM_STYLE
+        data_type: VARCHAR(200)
+      - name: ITEM_STYLE_SFX
+        expr: ITEM_STYLE_SFX
+        data_type: VARCHAR(32)
+      - name: ITEM_UPC_GTIN
+        expr: ITEM_UPC_GTIN
+        data_type: VARCHAR(100)
+      - name: LONG_DESCRIPTION
+        expr: LONG_DESCRIPTION
+        data_type: VARCHAR(2000)
+      - name: MARK_FOR_DELETION
+        expr: MARK_FOR_DELETION
+        data_type: NUMBER(38,0)
+      - name: MAX_NEST_NUMBER
+        expr: MAX_NEST_NUMBER
+        data_type: NUMBER(38,0)
+      - name: PICKUP_AT_STORE
+        expr: PICKUP_AT_STORE
+        data_type: NUMBER(38,0)
+      - name: PRICE_STATUS
+        expr: PRICE_STATUS
+        data_type: VARCHAR(60)
+      - name: PROD_TYPE
+        expr: PROD_TYPE
+        data_type: VARCHAR(12)
+      - name: PRODUCT_CLASS_ID
+        expr: PRODUCT_CLASS_ID
+        data_type: NUMBER(38,0)
+      - name: PROTN_FACTOR
+        expr: PROTN_FACTOR
+        data_type: VARCHAR(12)
+      - name: REF_FIELD10
+        expr: REF_FIELD10
+        data_type: VARCHAR(100)
+      - name: REF_FIELD7
+        expr: REF_FIELD7
+        data_type: VARCHAR(100)
+      - name: SCHEDULE_B_CODE_ID
+        expr: SCHEDULE_B_CODE_ID
+        data_type: NUMBER(38,0)
+      - name: SITC_CODE_ID
+        expr: SITC_CODE_ID
+        data_type: NUMBER(38,0)
+      - name: SIZE_SEQ
+        expr: SIZE_SEQ
+        data_type: NUMBER(38,0)
+      - name: SOLD_ONLINE
+        expr: SOLD_ONLINE
+        data_type: NUMBER(38,0)
+      - name: STAB_CODE
+        expr: STAB_CODE
+        data_type: VARCHAR(16)
+      - name: STACKABLE_ITEM
+        expr: STACKABLE_ITEM
+        data_type: VARCHAR(4)
+      - name: STATUS_CODE
+        expr: STATUS_CODE
+        data_type: NUMBER(38,0)
+      - name: STCC_CODE_ID
+        expr: STCC_CODE_ID
+        data_type: NUMBER(38,0)
+      - name: UN_NUMBER_ID
+        expr: UN_NUMBER_ID
+        data_type: NUMBER(38,0)
+      - name: URL
+        expr: URL
+        data_type: VARCHAR(1020)
+      - name: VARIABLE_WEIGHT
+        expr: VARIABLE_WEIGHT
+        data_type: NUMBER(38,0)
+      - name: VOLUME_UOM_ID
+        expr: VOLUME_UOM_ID
+        data_type: NUMBER(38,0)
+      - name: WEIGHT_UOM_ID
+        expr: WEIGHT_UOM_ID
+        data_type: NUMBER(38,0)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+      - name: AUDIT_CREATED_DTTM
+        expr: AUDIT_CREATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: AUDIT_LAST_UPDATED_DTTM
+        expr: AUDIT_LAST_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: COMMERCE_DATE_ATTRIBUTE1
+        expr: COMMERCE_DATE_ATTRIBUTE1
+        data_type: TIMESTAMP_NTZ(9)
+      - name: CREATED_DTTM
+        expr: CREATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: CUBISCAN_LAST_UPDATED_DTTM
+        expr: CUBISCAN_LAST_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LAST_UPDATED_DTTM
+        expr: LAST_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+    facts:
+      - name: CAVITY_HT
+        expr: CAVITY_HT
+        data_type: NUMBER(7,2)
+        access_modifier: public_access
+      - name: CAVITY_LEN
+        expr: CAVITY_LEN
+        data_type: NUMBER(7,2)
+        access_modifier: public_access
+      - name: CAVITY_WD
+        expr: CAVITY_WD
+        data_type: NUMBER(7,2)
+        access_modifier: public_access
+      - name: COMMERCE_NUM_ATTRIBUTE1
+        expr: COMMERCE_NUM_ATTRIBUTE1
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: COMMERCE_NUM_ATTRIBUTE2
+        expr: COMMERCE_NUM_ATTRIBUTE2
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: INCREMENTAL_HT
+        expr: INCREMENTAL_HT
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: INCREMENTAL_LEN
+        expr: INCREMENTAL_LEN
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: INCREMENTAL_WD
+        expr: INCREMENTAL_WD
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: REF_NUM1
+        expr: REF_NUM1
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM2
+        expr: REF_NUM2
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM3
+        expr: REF_NUM3
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM4
+        expr: REF_NUM4
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: REF_NUM5
+        expr: REF_NUM5
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: SELL_THROUGH
+        expr: SELL_THROUGH
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: STD_BUNDL_QTY
+        expr: STD_BUNDL_QTY
+        data_type: NUMBER(9,2)
+        access_modifier: public_access
+      - name: UNIT_HEIGHT
+        expr: UNIT_HEIGHT
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: UNIT_LENGTH
+        expr: UNIT_LENGTH
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: UNIT_VOLUME
+        expr: UNIT_VOLUME
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: UNIT_WEIGHT
+        expr: UNIT_WEIGHT
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: UNIT_WIDTH
+        expr: UNIT_WIDTH
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+    unique_keys:
+      - columns:
+          - COMPANY_ID
+      - columns:
+          - ITEM_ID
+  - name: VW_KPI_TRANSPORTATION
+    synonyms:
+      - Delivery Metrics
+      - Freight Performance
+      - Logistics KPI
+      - Logistics Performance
+      - Report Transportation KPI
+      - Shipping KPI
+      - Shipping Performance
+      - Supply Chain KPI
+      - Transportation KPI
+      - Transportation Performance
+    description: This view provides key performance indicators (KPIs) for transportation operations, tracking the lifecycle of shipments from order placement to delivery, including details on shipping carriers, routes, and timelines, as well as metrics on delivery performance and estimated delivery dates.
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_KPI_TRANSPORTATION
+    dimensions:
+      - name: BRAND
+        expr: '"Brand"'
+        data_type: VARCHAR(100)
+      - name: CARRIER
+        expr: '"Carrier"'
+        data_type: VARCHAR(100)
+      - name: CARRIER_ESTIMATED_DAYS
+        expr: '"Carrier Estimated days"'
+        data_type: VARCHAR(16777216)
+      - name: CARRIER_SERVICE
+        expr: '"Carrier Service"'
+        data_type: VARCHAR(100)
+      - name: CHANNEL
+        expr: '"Channel"'
+        data_type: VARCHAR(768)
+      - name: COUNTRY
+        expr: '"Country"'
+        data_type: VARCHAR(8)
+      - name: DD_BETWEEN
+        expr: DD_BETWEEN
+        data_type: NUMBER(13,0)
+      - name: DELIVERY_ATTEMPED
+        expr: '"Delivery Attemped"'
+        data_type: TIMESTAMP_NTZ(9)
+      - name: DESTINITY_CITY
+        expr: '"Destinity City"'
+        data_type: VARCHAR(160)
+      - name: GAYLORD_ID
+        expr: '"Gaylord ID"'
+        data_type: VARCHAR(200)
+      - name: HD_BETWEEN
+        expr: HD_BETWEEN
+        data_type: NUMBER(18,0)
+      - name: LPN
+        expr: LPN
+        data_type: VARCHAR(200)
+      - name: ORDER_ID
+        expr: '"Order ID"'
+        data_type: VARCHAR(200)
+      - name: ORDER_STATUS
+        expr: '"Order Status"'
+        data_type: VARCHAR(160)
+      - name: PKG_STATUS
+        expr: '"PKG Status"'
+        data_type: VARCHAR(12)
+      - name: POSTAL_CODE
+        expr: '"Postal Code"'
+        data_type: VARCHAR(40)
+      - name: PRE_RATE_ESTIMATED_DAYS
+        expr: '"Pre rate Estimated days"'
+        data_type: VARCHAR(2000)
+      - name: REF_FIELD_10
+        expr: '"Ref Field 10"'
+        data_type: VARCHAR(100)
+      - name: STATE
+        expr: '"State"'
+        data_type: VARCHAR(16777216)
+      - name: STATE_ABBR
+        expr: '"State Abbr"'
+        data_type: VARCHAR(12)
+      - name: SUSPECTED_LOST
+        expr: '"Suspected Lost"'
+        data_type: VARCHAR(16777216)
+      - name: TC_COMPANY_ID
+        expr: TC_COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: TRACKING
+        expr: '"Tracking"'
+        data_type: VARCHAR(16777216)
+      - name: WD
+        expr: WD
+        data_type: NUMBER(38,0)
+    time_dimensions:
+      - name: ARRIVE_CARRIER
+        expr: '"Arrive Carrier"'
+        data_type: TIMESTAMP_NTZ(9)
+      - name: DELIVERY_DATE
+        expr: '"Delivery Date"'
+        data_type: TIMESTAMP_NTZ(9)
+      - name: DEPARTED_DATE
+        expr: '"Departed Date"'
+        data_type: TIMESTAMP_NTZ(9)
+      - name: ESTIMATED_DATE
+        expr: '"Estimated Date"'
+        data_type: TIMESTAMP_NTZ(9)
+      - name: FIRST_ATTEMP
+        expr: '"First Attemp"'
+        data_type: TIMESTAMP_NTZ(9)
+      - name: GAYLORD_STAGE_DATE
+        expr: '"Gaylord Stage Date"'
+        data_type: TIMESTAMP_NTZ(9)
+      - name: IN_TRANSIT
+        expr: '"In Transit"'
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LAST_UPDATED
+        expr: '"last updated"'
+        data_type: TIMESTAMP_LTZ(9)
+      - name: ORDER_DATE_WMS
+        expr: '"Order Date WMS"'
+        data_type: TIMESTAMP_NTZ(9)
+      - name: ORIGIN_SCAN
+        expr: '"Origin Scan"'
+        data_type: TIMESTAMP_NTZ(9)
+      - name: PROMISE_DATE
+        expr: '"Promise Date"'
+        data_type: TIMESTAMP_NTZ(9)
+      - name: PROMISE_DATE_WM
+        expr: '"Promise Date WM"'
+        data_type: TIMESTAMP_NTZ(9)
+      - name: SHIPPED_DATE_WMS
+        expr: '"Shipped Date WMS"'
+        data_type: TIMESTAMP_NTZ(9)
+    facts:
+      - name: COST_MHT
+        expr: '"Cost-MHT"'
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: VOLUME
+        expr: '"Volume"'
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: WEIGHT
+        expr: '"Weight"'
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+    unique_keys:
+      - columns:
+          - TC_COMPANY_ID
+  - name: VW_LATESHIPMENT
+    synonyms:
+      - Current Shipments
+      - Current Tracking
+      - Delivery Updates
+      - Latest Delivery Status
+      - Latest Shipments
+      - Recent Deliveries
+      - Recent Tracking Numbers
+      - Shipment Updates
+    description: This view provides the latest shipment information for each tracking number, including details such as carrier type, service type, shipment dates, delivery status, and location, while excluding shipments that are still in the "Label Created" status.
+    base_table:
+      database: QA_BI
+      schema: LS
+      table: VW_LATESHIPMENT
+    dimensions:
+      - name: CARRIER_TYPE
+        expr: CARRIER_TYPE
+        data_type: VARCHAR(256)
+      - name: DELIVERYATTEMPTED
+        expr: DELIVERYATTEMPTED
+        data_type: VARCHAR(134217728)
+      - name: DELIVERYDATE
+        expr: DELIVERYDATE
+        data_type: VARCHAR(134217728)
+      - name: ESTIMATEDDATE
+        expr: ESTIMATEDDATE
+        data_type: VARCHAR(134217728)
+      - name: ESTIMATEDDAYS
+        expr: ESTIMATEDDAYS
+        data_type: VARCHAR(134217728)
+      - name: EVENT
+        expr: EVENT
+        data_type: VARCHAR(134217728)
+      - name: INTRANSITDATE
+        expr: INTRANSITDATE
+        data_type: VARCHAR(134217728)
+      - name: LOCATION
+        expr: LOCATION
+        data_type: VARCHAR(134217728)
+      - name: MAX_INSERT
+        expr: MAX_INSERT
+        data_type: NUMBER(18,0)
+      - name: ORIGIN_SCAN
+        expr: ORIGIN_SCAN
+        data_type: VARCHAR(134217728)
+      - name: OUTFORDELIVERYDATE
+        expr: OUTFORDELIVERYDATE
+        data_type: VARCHAR(134217728)
+      - name: OVERLABELED_TN
+        expr: OVERLABELED_TN
+        data_type: VARCHAR(256)
+      - name: SERVICETYPE
+        expr: SERVICETYPE
+        data_type: VARCHAR(256)
+      - name: SHIPDATE
+        expr: SHIPDATE
+        data_type: VARCHAR(134217728)
+      - name: SHOPIFYORDERNUMBER
+        expr: SHOPIFYORDERNUMBER
+        data_type: VARCHAR(256)
+      - name: STATUS
+        expr: STATUS
+        data_type: VARCHAR(134217728)
+      - name: SUSPECTED_LOST
+        expr: SUSPECTED_LOST
+        data_type: VARCHAR(134217728)
+      - name: TIMESTAMP
+        expr: TIMESTAMP
+        data_type: VARCHAR(134217728)
+      - name: TRACKINGNUMBER
+        expr: TRACKINGNUMBER
+        data_type: VARCHAR(256)
+  - name: VW_LPN
+    synonyms:
+      - License Plate Number.
+      - LPN
+      - Package Identifier
+    description: 'This view provides a consolidated and unified view of LPN (License Plate Number) data from three different sources: GOLD, SILVER, and RY. It combines the data from these sources into a single view, allowing for easier access and analysis of LPN information, including order details, tracking numbers, weights, volumes, shipping information, and deletion indicators.'
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_LPN
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: INBOUND_OUTBOUND_INDICATOR
+        expr: INBOUND_OUTBOUND_INDICATOR
+        data_type: VARCHAR(4)
+      - name: ORDER_ID
+        expr: ORDER_ID
+        data_type: NUMBER(38,0)
+      - name: SHIP_VIA
+        expr: SHIP_VIA
+        data_type: VARCHAR(16)
+      - name: TC_COMPANY_ID
+        synonyms:
+          - Company_ID
+          - Tc_Company_ID
+        description: Transportation company identifier.
+        expr: TC_COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: TC_LPN_ID
+        expr: TC_LPN_ID
+        data_type: VARCHAR(200)
+      - name: TC_PARENT_LPN_ID
+        synonyms:
+          - Gaylord
+          - TC_PARENT_LPN_ID
+        expr: TC_PARENT_LPN_ID
+        data_type: VARCHAR(200)
+      - name: TC_SHIPMENT_ID
+        expr: TC_SHIPMENT_ID
+        data_type: VARCHAR(200)
+      - name: TRACKING_NBR
+        expr: TRACKING_NBR
+        data_type: VARCHAR(200)
+    time_dimensions:
+      - name: CREATED_DTTM
+        expr: CREATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LAST_UPDATED_DTTM
+        expr: LAST_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: SHIPPED_DTTM
+        expr: SHIPPED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+    facts:
+      - name: ACTUAL_CHARGE
+        expr: ACTUAL_CHARGE
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: ACTUAL_VOLUME
+        expr: ACTUAL_VOLUME
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: ESTIMATED_VOLUME
+        expr: ESTIMATED_VOLUME
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: ESTIMATED_WEIGHT
+        expr: ESTIMATED_WEIGHT
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: HEIGHT
+        expr: HEIGHT
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: LENGTH
+        expr: LENGTH
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: TOTAL_LPN_QTY
+        expr: TOTAL_LPN_QTY
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: WEIGHT
+        expr: WEIGHT
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+      - name: WIDTH
+        expr: WIDTH
+        data_type: NUMBER(16,4)
+        access_modifier: public_access
+    unique_keys:
+      - columns:
+          - TC_LPN_ID
+      - columns:
+          - ORDER_ID
+      - columns:
+          - TC_COMPANY_ID
+  - name: VW_ORDERS
+    synonyms:
+      - ORDER SUMMARY
+      - ORDER_AGGREGATE
+      - ORDER_COLLECTION
+      - ORDER_COMBINED
+      - ORDER_CONSOLIDATED
+      - ORDER_MASTER
+      - ORDER_UNION
+      - ORDERS
+    description: This view provides a consolidated view of orders from multiple data sources (GOLD, SILVER, and RY) across different companies, allowing for a unified view of order information including order details, delivery information, and status.
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_ORDERS
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: D_ADDRESS_1
+        expr: D_ADDRESS_1
+        data_type: VARCHAR(300)
+      - name: D_ADDRESS_2
+        expr: D_ADDRESS_2
+        data_type: VARCHAR(300)
+      - name: D_ADDRESS_3
+        expr: D_ADDRESS_3
+        data_type: VARCHAR(300)
+      - name: D_CITY
+        synonyms:
+          - Order CITY
+          - Order Destination CITY
+        expr: D_CITY
+        data_type: VARCHAR(160)
+      - name: D_COUNTRY_CODE
+        synonyms:
+          - Order Country Code
+          - Order Destination Country Code
+        expr: D_COUNTRY_CODE
+        data_type: VARCHAR(8)
+      - name: D_EMAIL
+        expr: D_EMAIL
+        data_type: VARCHAR(1024)
+      - name: D_NAME
+        expr: D_NAME
+        data_type: VARCHAR(364)
+      - name: D_PHONE_NUMBER
+        expr: D_PHONE_NUMBER
+        data_type: VARCHAR(128)
+      - name: D_POSTAL_CODE
+        description: Order Destination Postal Code, Order Postal Code
+        expr: D_POSTAL_CODE
+        data_type: VARCHAR(40)
+      - name: D_STATE_PROV
+        synonyms:
+          - Order Destination State Prov
+          - Order State Prov
+        expr: D_STATE_PROV
+        data_type: VARCHAR(12)
+      - name: DO_STATUS
+        expr: DO_STATUS
+        data_type: NUMBER(38,0)
+      - name: ORDER_ID
+        expr: ORDER_ID
+        data_type: NUMBER(38,0)
+      - name: ORDER_TYPE
+        synonyms:
+          - Order Type
+        expr: ORDER_TYPE
+        data_type: VARCHAR(80)
+      - name: REF_FIELD_10
+        synonyms:
+          - Order REF_FIELD_10
+          - Sub Brand CWH
+          - Sub Brand CWHOINT
+          - Sub-Brand CWH
+          - Sub-Brand CWHOINT
+        expr: REF_FIELD_10
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_2
+        synonyms:
+          - '321'
+          - 321 Fee
+          - 321 Program
+        description: 321 Program, all '321' values are 321 and everything else is consider Non-321.
+        expr: REF_FIELD_2
+        data_type: VARCHAR(100)
+        is_enum: false
+      - name: REF_FIELD_4
+        expr: REF_FIELD_4
+        data_type: VARCHAR(100)
+      - name: REF_FIELD_7
+        expr: REF_FIELD_7
+        data_type: VARCHAR(100)
+      - name: TC_COMPANY_ID
+        expr: TC_COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: TC_ORDER_ID
+        synonyms:
+          - Client order id
+        expr: TC_ORDER_ID
+        data_type: VARCHAR(200)
+    time_dimensions:
+      - name: CREATED_DTTM
+        expr: CREATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: DELIVERY_END_DTTM
+        expr: DELIVERY_END_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+    metrics:
+      - name: TOTAL_DISTINCT_ORDERS
+        description: Calculates the total number of unique orders in the system. Use when questions ask about 'number of orders', 'order count', 'total orders', 'how many orders', or 'order volume'. Helps track order processing volume, measure business activity levels, and analyze order patterns across different time periods.
+        expr: COUNT(DISTINCT order_id)
+        access_modifier: public_access
+    primary_key:
+      columns:
+        - ORDER_ID
+    unique_keys:
+      - columns:
+          - TC_COMPANY_ID
+      - columns:
+          - TC_ORDER_ID
+      - columns:
+          - REF_FIELD_2
+  - name: VW_SHIP_BOL
+    synonyms:
+      - Bill of Lading
+      - Cargo Manifest
+      - Consignment Note
+      - Delivery Note
+      - Freight Document
+      - SHIP_BOL
+      - Shipping Bill of Lading
+      - Shipping Document
+      - Shipping Record
+    description: This view appears to be related to shipping and logistics, specifically tracking shipments and bills of lading (BOL). It contains information about shipments, including the shipping reference, plant ID, shipping type, bill of lading number, delivery details, costs, and timestamps for creation, update, and delivery. It also includes user information for the creator and updater of the shipment record, as well as flags for deleted and synced records.
+    base_table:
+      database: QA_BI
+      schema: XBADMIN
+      table: VW_SHIP_BOL
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: CONTPROGRAMA_ID
+        expr: CONTPROGRAMA_ID
+        data_type: NUMBER(38,0)
+      - name: ID_BOL
+        expr: ID_BOL
+        data_type: NUMBER(38,0)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+      - name: HORAENTREGABOL
+        expr: HORAENTREGABOL
+        data_type: TIMESTAMP_NTZ(9)
+    unique_keys:
+      - columns:
+          - ID_BOL
+  - name: VW_SHIP_BOL_DETALLE
+    synonyms:
+      - BILL_OF_LADING_DETAILS
+      - BOL_DETAILS_VIEW
+      - SHIP_BOL_DETALLE
+      - SHIPMENT_BOL_DETAILS
+      - SHIPPING_BOL_DETAILS
+    description: This view provides detailed information about shipping bill of lading (BOL) records, including the unique identifier for each BOL detail, the associated BOL ID, shipment scan ID, user ID, and flags indicating whether the record has been deleted or synced.
+    base_table:
+      database: QA_BI
+      schema: XBADMIN
+      table: VW_SHIP_BOL_DETALLE
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: BOL_ID
+        expr: BOL_ID
+        data_type: NUMBER(38,0)
+      - name: SHIPSCAN_ID
+        expr: SHIPSCAN_ID
+        data_type: NUMBER(38,0)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+    unique_keys:
+      - columns:
+          - SHIPSCAN_ID
+  - name: VW_SHIP_SCANS
+    synonyms:
+      - DELIVERY_SCANS
+      - SCAN_DATA
+      - SCAN_HISTORY
+      - SCAN_RECORDS
+      - SHIP_SCANS
+      - SHIPMENT_DATA
+      - SHIPMENT_SCANS
+      - SHIPPING_LOGS
+      - SHIPPING_RECORDS
+      - SHIPPING_SCANS
+    description: This view, VW_SHIP_SCANS, appears to store information related to shipping scans, including details about the shipment, such as the date and time of the scan, the quantity and weight of the items, the location and status of the shipment, and the users involved in the shipping process.
+    base_table:
+      database: QA_BI
+      schema: XBADMIN
+      table: VW_SHIP_SCANS
+    dimensions:
+      - name: GAYLORDSCAN
+        expr: GAYLORDSCAN
+        data_type: VARCHAR(50)
+      - name: ID_SHIPSCAN
+        expr: ID_SHIPSCAN
+        data_type: NUMBER(38,0)
+    unique_keys:
+      - columns:
+          - GAYLORDSCAN
+  - name: VW_WM_INVENTORY
+    synonyms:
+      - WM_INVENTORY
+      - WM_INVENTORY BY COMPANY
+      - WM_INVENTORY_ALL
+    description: This view provides a consolidated inventory snapshot across multiple warehouses, combining data from GOLD, SILVER, and RY warehouses, to track inventory levels, product information, and movement status, enabling real-time visibility and management of inventory across different facilities and locations.
+    base_table:
+      database: QA_BI
+      schema: WM
+      table: VW_WM_INVENTORY
+    dimensions:
+      - name: _FIVETRAN_DELETED
+        expr: _FIVETRAN_DELETED
+        data_type: BOOLEAN
+      - name: ALLOCATABLE
+        expr: ALLOCATABLE
+        data_type: VARCHAR(4)
+      - name: BATCH_NBR
+        expr: BATCH_NBR
+        data_type: VARCHAR(80)
+      - name: C_FACILITY_ID
+        expr: C_FACILITY_ID
+        data_type: NUMBER(38,0)
+      - name: CNTRY_OF_ORGN
+        expr: CNTRY_OF_ORGN
+        data_type: VARCHAR(16)
+      - name: CREATED_SOURCE
+        expr: CREATED_SOURCE
+        data_type: VARCHAR(200)
+      - name: CREATED_SOURCE_TYPE
+        expr: CREATED_SOURCE_TYPE
+        data_type: NUMBER(38,0)
+      - name: INBOUND_OUTBOUND_INDICATOR
+        expr: INBOUND_OUTBOUND_INDICATOR
+        data_type: VARCHAR(4)
+      - name: INVENTORY_TYPE
+        expr: INVENTORY_TYPE
+        data_type: VARCHAR(4)
+      - name: ITEM_ATTR_1
+        expr: ITEM_ATTR_1
+        data_type: VARCHAR(40)
+      - name: ITEM_ATTR_2
+        expr: ITEM_ATTR_2
+        data_type: VARCHAR(40)
+      - name: ITEM_ATTR_3
+        expr: ITEM_ATTR_3
+        data_type: VARCHAR(40)
+      - name: ITEM_ATTR_4
+        expr: ITEM_ATTR_4
+        data_type: VARCHAR(40)
+      - name: ITEM_ATTR_5
+        expr: ITEM_ATTR_5
+        data_type: VARCHAR(40)
+      - name: ITEM_ID
+        expr: ITEM_ID
+        data_type: NUMBER(38,0)
+      - name: LAST_UPDATED_SOURCE
+        expr: LAST_UPDATED_SOURCE
+        data_type: VARCHAR(200)
+      - name: LAST_UPDATED_SOURCE_TYPE
+        expr: LAST_UPDATED_SOURCE_TYPE
+        data_type: NUMBER(38,0)
+      - name: LOCATION_DTL_ID
+        expr: LOCATION_DTL_ID
+        data_type: NUMBER(38,0)
+      - name: LOCATION_ID
+        expr: LOCATION_ID
+        data_type: VARCHAR(40)
+      - name: LOCN_CLASS
+        expr: LOCN_CLASS
+        data_type: VARCHAR(4)
+      - name: LPN_DETAIL_ID
+        expr: LPN_DETAIL_ID
+        data_type: NUMBER(38,0)
+      - name: LPN_ID
+        expr: LPN_ID
+        data_type: NUMBER(38,0)
+      - name: MARKED_FOR_DELETE
+        expr: MARKED_FOR_DELETE
+        data_type: VARCHAR(4)
+      - name: PRODUCT_STATUS
+        expr: PRODUCT_STATUS
+        data_type: VARCHAR(12)
+      - name: RECALL_ID
+        expr: RECALL_ID
+        data_type: NUMBER(38,0)
+      - name: TC_COMPANY_ID
+        expr: TC_COMPANY_ID
+        data_type: NUMBER(38,0)
+      - name: TC_LPN_ID
+        expr: TC_LPN_ID
+        data_type: VARCHAR(200)
+      - name: TRANSITIONAL_INVENTORY_TYPE
+        expr: TRANSITIONAL_INVENTORY_TYPE
+        data_type: NUMBER(38,0)
+      - name: WM_INVENTORY_ID
+        expr: WM_INVENTORY_ID
+        data_type: NUMBER(38,0)
+      - name: WM_VERSION_ID
+        expr: WM_VERSION_ID
+        data_type: NUMBER(38,0)
+    time_dimensions:
+      - name: _FIVETRAN_SYNCED
+        expr: _FIVETRAN_SYNCED
+        data_type: TIMESTAMP_TZ(9)
+      - name: CREATED_DTTM
+        expr: CREATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+      - name: LAST_UPDATED_DTTM
+        expr: LAST_UPDATED_DTTM
+        data_type: TIMESTAMP_NTZ(9)
+    facts:
+      - name: CUMULATIVE_QTY
+        expr: CUMULATIVE_QTY
+        data_type: NUMBER(13,4)
+        access_modifier: public_access
+      - name: ON_HAND_QTY
+        expr: ON_HAND_QTY
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: PACK_QTY
+        expr: PACK_QTY
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: SUB_PACK_QTY
+        expr: SUB_PACK_QTY
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: TO_BE_CONSOLIDATED_QTY
+        expr: TO_BE_CONSOLIDATED_QTY
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: TO_BE_FILLED_QTY
+        expr: TO_BE_FILLED_QTY
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+      - name: WM_ALLOCATED_QTY
+        expr: WM_ALLOCATED_QTY
+        data_type: NUMBER(13,5)
+        access_modifier: public_access
+    unique_keys:
+      - columns:
+          - TC_COMPANY_ID
+relationships:
+  - name: CATCOMPANY_ORDERS
+    left_table: VW_CAT_COMPANY
+    right_table: VW_ORDERS
+    relationship_columns:
+      - left_column: COMPANY_ID
+        right_column: TC_COMPANY_ID
+  - name: COMPANY_KPITRANSPORTATION
+    left_table: VW_CAT_COMPANY
+    right_table: VW_KPI_TRANSPORTATION
+    relationship_columns:
+      - left_column: COMPANY
+        right_column: TC_COMPANY_ID
+  - name: COMPANY_LPN
+    left_table: VW_CAT_COMPANY
+    right_table: VW_LPN
+    relationship_columns:
+      - left_column: COMPANY_ID
+        right_column: TC_COMPANY_ID
+  - name: COMPANY_WM_INVENTORY
+    left_table: VW_CAT_COMPANY
+    right_table: VW_WM_INVENTORY
+    relationship_columns:
+      - left_column: COMPANY_ID
+        right_column: TC_COMPANY_ID
+  - name: LPN_DTS
+    left_table: VW_LPN
+    right_table: VW_DTS
+    relationship_columns:
+      - left_column: TC_LPN_ID
+        right_column: D_MATCHED_ID
+  - name: LPN_SHIPSCANS
+    left_table: VW_LPN
+    right_table: VW_SHIP_SCANS
+    relationship_columns:
+      - left_column: TC_PARENT_LPN_ID
+        right_column: GAYLORDSCAN
+  - name: ORDERS_DOSTATUS
+    left_table: VW_ORDERS
+    right_table: VW_CAT_DOSTATUS
+    relationship_columns:
+      - left_column: DO_STATUS
+        right_column: DO_STATUS
+  - name: ORDERS_LPN
+    left_table: VW_ORDERS
+    right_table: VW_LPN
+    relationship_columns:
+      - left_column: ORDER_ID
+        right_column: ORDER_ID
+  - name: SHIPBOL_IMPEXPPROGRAMA
+    left_table: VW_SHIP_BOL
+    right_table: VW_IMPEXP_PROGRAMA
+    relationship_columns:
+      - left_column: CONTPROGRAMA_ID
+        right_column: ID_CONTPROGRAMA
+  - name: SHIPBOLDETALLE_SHIPBOL
+    left_table: VW_SHIP_BOL_DETALLE
+    right_table: VW_SHIP_BOL
+    relationship_columns:
+      - left_column: BOL_ID
+        right_column: ID_BOL
+  - name: SHIPSCANS_SHIPBOLDETALLE
+    left_table: VW_SHIP_SCANS
+    right_table: VW_SHIP_BOL_DETALLE
+    relationship_columns:
+      - left_column: ID_SHIPSCAN
+        right_column: SHIPSCAN_ID
+verified_queries:
+  - name: How many lpns do we have?
+    question: How many lpns do we have?
+    sql: |-
+      SELECT
+        MIN(l.created_dttm) AS start_date,
+        MAX(l.created_dttm) AS end_date,
+        COUNT(DISTINCT l.tc_lpn_id) AS total_lpns
+      FROM
+        vw_lpn l
+        INNER JOIN QA_BI.WM.VW_CAT_COMPANY c ON l.tc_company_id = c.company_id
+      WHERE
+        l._fivetran_deleted = FALSE
+    use_as_onboarding_question: false
+    verified_by: DACORONA
+    verified_at: 1765839007
+  - name: how many orders do we have?
+    question: how many orders do we have?
+    sql: |-
+      SELECT
+        MIN(o.created_dttm) AS start_date,
+        MAX(o.created_dttm) AS end_date,
+        COUNT(DISTINCT o.tc_order_id) AS total_orders
+      FROM
+        vw_orders AS o
+        INNER JOIN QA_BI.WM.VW_CAT_COMPANY c ON o.tc_company_id = c.company_id
+      WHERE
+        o._fivetran_deleted = FALSE
+    use_as_onboarding_question: false
+    verified_by: DACORONA
+    verified_at: 1765841358
+  - name: how many orders do we have by company?
+    question: how many orders do we have by company?
+    sql: |-
+      SELECT
+        c.company,
+        MIN(o.created_dttm) AS start_date,
+        MAX(o.created_dttm) AS end_date,
+        COUNT(DISTINCT o.tc_order_id) AS total_orders
+      FROM
+        vw_orders AS o
+        INNER JOIN vw_cat_company AS c ON o.tc_company_id = c.company_id
+      WHERE
+        o._fivetran_deleted = FALSE
+      GROUP BY
+        c.company
+      ORDER BY
+        total_orders DESC NULLS LAST
+    use_as_onboarding_question: false
+    verified_by: DACORONA
+    verified_at: 1765841409
+  - name: How many orders contains the order type B2B?
+    question: How many orders contains the order type B2B?
+    sql: |-
+      SELECT
+        MIN(o.created_dttm) AS start_date,
+        MAX(o.created_dttm) AS end_date,
+        COUNT(DISTINCT o.tc_order_id) AS total_orders
+      FROM
+        vw_orders AS o
+        INNER JOIN vw_cat_company AS c ON o.tc_company_id = c.company_id
+      WHERE
+        o._fivetran_deleted = FALSE
+        AND o.order_type LIKE '%B2B%'
+    use_as_onboarding_question: false
+    verified_by: DACORONA
+    verified_at: 1765841674
+  - name: How many orders equals the order type B2B?
+    question: How many orders equals the order type B2B?
+    sql: |-
+      SELECT
+        MIN(o.created_dttm) AS start_date,
+        MAX(o.created_dttm) AS end_date,
+        COUNT(DISTINCT o.tc_order_id) AS total_orders
+      FROM
+        vw_orders AS o
+        INNER JOIN vw_cat_company AS c ON o.tc_company_id = c.company_id
+      WHERE
+        o._fivetran_deleted = FALSE
+        AND o.order_type = 'B2B'
+    use_as_onboarding_question: false
+    verified_by: DACORONA
+    verified_at: 1765841386
+  - name: How many orders have we had during the last year?
+    question: How many orders have we had during the last year?
+    sql: |-
+      SELECT
+        MIN(o.created_dttm) AS start_date,
+        MAX(o.created_dttm) AS end_date,
+        COUNT(DISTINCT o.tc_order_id) AS total_orders
+      FROM
+        vw_orders AS o
+        INNER JOIN vw_cat_company AS c ON o.tc_company_id = c.company_id
+      WHERE
+        o._fivetran_deleted = FALSE
+        AND DATE_PART('year', o.created_dttm) = DATE_PART('year', CURRENT_DATE) - 1
+    use_as_onboarding_question: false
+    verified_by: DACORONA
+    verified_at: 1765906802
+module_custom_instructions:
+  question_categorization: |-
+    1. Enforced Security and Structure Rules
+    Grouping and Filtering by Company (CORE REQUIREMENT): Whenever the query involves core data views (vw_orders, vw_wm_inventory, vw_lpn, vw_item_cbo), you must perform an INNER JOIN with __vw_cat_company. The company column must be included in the final SELECT list and the GROUP BY clause (if applicable). This ensures the results are always segmented by company.
+
+    ID Column Restriction: Never include the columns company_id or tc_company_id in the final SELECT clause.
+
+    2. View Structure (CTEs)
+    You must initialize the following views at the beginning of the query:
+    __vw_orders (qa_bi.wm.vw_orders): Contains order_id, tc_order_id, tc_company_id, created_dttm.
+    __vw_cat_company (qa_bi.wm.vw_cat_company): Contains company, company_id.
+
+    3. JOIN Structure
+    Standard Condition: The security JOIN must be: INNER JOIN __vw_cat_company AS c ON c.company_id = [data_table_alias].tc_company_id.
+
+    4. When the user uses "Contains" or "containing", we should use a sentence like when the user use "Equals" or are or is, that's mean =.
