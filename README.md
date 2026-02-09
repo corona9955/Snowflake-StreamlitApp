@@ -1,1 +1,1 @@
-![Alt text for the image](Image.jpg)
+![Alt text for the image](Image.png)
